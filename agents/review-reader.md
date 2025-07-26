@@ -11,6 +11,8 @@ tools: Bash, mcp__github__get_pull_request_comments
 
 ## 主な責務
 - レビューコメントの取得と解析
+- **リゾルブ状態の確認**（GraphQL APIを使用）
+- 未解決コメントのみをフィルタリング
 - 指摘内容の分類（バグ、改善提案、質問など）
 - 優先度の判定
 - 修正に必要な情報の抽出
@@ -36,18 +38,45 @@ tools: Bash, mcp__github__get_pull_request_comments
    - Medium: パフォーマンス、可読性
    - Low: スタイル、命名規則
 
+## リゾルブ状態の確認
+GraphQL APIを使用して、各コメントのリゾルブ状態を確認：
+```graphql
+query($owner: String!, $repo: String!, $number: Int!) {
+  repository(owner: $owner, name: $repo) {
+    pullRequest(number: $number) {
+      reviewThreads(first: 100) {
+        nodes {
+          id
+          isResolved
+          comments(first: 10) {
+            nodes {
+              id
+              body
+              path
+              line
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## 出力形式
 ```json
 {
   "comments": [
     {
       "id": "comment_id",
+      "thread_id": "thread_id",
       "file": "path/to/file",
       "line": 123,
       "type": "bug|improvement|style|security|question",
       "priority": "critical|high|medium|low",
       "content": "レビューコメントの内容",
       "suggestion": "提案された修正内容",
+      "is_resolved": false,
       "requires_response": true
     }
   ]
@@ -58,6 +87,13 @@ tools: Bash, mcp__github__get_pull_request_comments
 - PRレビューコメントの分析が必要な時
 - reply-reviewコマンドから呼び出された時
 - レビュー対応の初期段階で自動的に実行
+- **重要**: レビューを複数回読む場合でも、毎回リゾルブ状態を確認
+
+## 処理フロー
+1. MCPツールでコメント一覧を取得
+2. GraphQL APIでリゾルブ状態を確認
+3. 未解決（isResolved: false）のコメントのみを処理対象とする
+4. 分析結果を構造化して出力
 
 ## 他エージェントとの連携
 読み取った情報は以下のエージェントに引き継がれます：
