@@ -1,7 +1,7 @@
 ---
 name: github-api
-description: GitHub API操作専門エージェント
-tools: Bash, Read, mcp__github__get_pull_request_comments, mcp__github__create_pending_pull_request_review, mcp__github__add_pull_request_review_comment_to_pending_review, mcp__github__submit_pending_pull_request_review
+description: MUST BE USED for GitHub API operations - PR comments, reviews, issues
+tools: Bash, mcp__github__get_pull_request_comments, mcp__github__create_pending_pull_request_review, mcp__github__add_pull_request_review_comment_to_pending_review, mcp__github__submit_pending_pull_request_review
 ---
 
 # GitHub API操作専門エージェント
@@ -33,6 +33,11 @@ GitHub APIとGitHub CLIを使用して、PR、Issue、コメントなどの操�
 1. APIレート制限を考慮（必要に応じて待機）
 2. エラーレスポンスを適切に処理
 3. 大量データは必要な分だけ取得（ページネーション活用）
+
+## プロアクティブな実行条件
+- PR番号やIssue番号が言及された時
+- レビューコメントへの返信が必要な時
+- GitHub関連の情報取得が必要な時
 
 ## 使用例
 - 「PR #123のレビューコメントを取得して」
