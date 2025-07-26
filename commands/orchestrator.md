@@ -32,22 +32,29 @@ Split complex tasks into sequential steps, where each step can contain multiple 
    - Build comprehensive understanding progressively
    - Maintain flexibility to adapt plan
 
-## Example Usage
+## Example Usage with Agents
 
 When given "analyze test lint and commit":
 
 **Step 1: Initial Analysis** (1 subtask)
 - Analyze project structure to understand test/lint setup
+- Identify frontend vs backend components
 
 **Step 2: Quality Checks** (parallel subtasks)
 - Run tests and capture results
 - Run linting and type checking
 - Check git status and changes
 
-**Step 3: Fix Issues** (parallel subtasks, using Step 2 results)
-- Fix linting errors found in Step 2
-- Fix type errors found in Step 2
+**Step 3: Fix Issues** (parallel subtasks with specialized agents)
+- **frontend-developer**: Fix frontend linting/type errors found in Step 2
+- **backend-developer**: Fix backend test failures found in Step 2
 - Prepare commit message based on changes
+
+*Agent Context Passing:*
+- Error logs and file paths from Step 2
+- Specific error messages and line numbers
+- Test failure details
+
 *Review: If no errors found in Step 2, skip fixes and proceed to commit*
 
 **Step 4: Final Validation** (parallel subtasks)
@@ -75,6 +82,34 @@ When given "analyze test lint and commit":
   - Did we discover something that requires new tasks?
   - Can we skip or simplify upcoming steps?
   - Should we add new validation steps?
+
+## Agent Integration Strategy
+
+### When to Use Specialized Agents
+- **Step 3+**: Implementation and fix steps benefit most from agents
+- **Parallel Work**: Different agents can work on frontend/backend simultaneously
+- **Context Isolation**: Each agent receives only relevant error context
+
+### Context Passing to Agents
+1. **Error Context**:
+   - Specific error messages and stack traces
+   - Failed test names and assertions
+   - Linting rule violations
+
+2. **File Context**:
+   - List of affected files
+   - Recent changes from git diff
+   - Dependencies and imports
+
+3. **Project Context**:
+   - Technology stack identification from Step 1
+   - Build/test configuration
+   - Coding standards and patterns
+
+### Agent Selection Logic
+- Files in `components/`, `pages/`, `app/` → **frontend-developer**
+- Files in `api/`, `services/`, `models/` → **backend-developer**
+- Mixed changes → Both agents work in parallel on their domains
 
 ## Adaptive Planning Example
 
