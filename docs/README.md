@@ -11,6 +11,7 @@
 - [Claude Code サブエージェント](調査/agents/Claude_Code_サブエージェント.md) - 公式ドキュメントによるサブエージェント機能の解説
 - [専門エージェント活用ガイド 実践記事](調査/agents/専門エージェント活用ガイド_実践記事.md) - 複数の専門エージェントを作成した実践レポート
 - [コードレビューエージェントのGitHub連携実装](調査/agents/コードレビューエージェントのGitHub連携実装.md) - GitHubのPRに自動コメントする実装例
+- [Claude Code GitHub Actionsでのサブエージェント利用](調査/agents/Claude_Code_GitHub_Actionsでのサブエージェント利用.md) - GitHub Actions環境でのサブエージェント機能の調査
 
 ### 💡 仮説
 *調査から生まれた使い方のアイデア*
