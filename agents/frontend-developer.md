@@ -1,16 +1,18 @@
 ---
-name: nextjs-developer
+name: frontend-developer
 description: |
   Use PROACTIVELY when:
-  - Working with Next.js App Router files
-  - Implementing Server Components or Client Components
-  - Using OpenNext or Cloudflare Workers
-  - Writing tests with Vitest
-  - Using TanStack Query, Zod, or Tailwind CSS
+  - Working with React, Vue, Svelte components
+  - Implementing UI/UX features
+  - Frontend routing and state management
+  - CSS/styling operations
+  - Client-side logic and interactions
+  - Working with .tsx, .jsx, .vue files
+  - Frontend testing (components, hooks, utilities)
 tools: Read, Write, Edit, MultiEdit, Grep, Glob, Bash, Task, WebSearch, WebFetch
 ---
 
-# nextjs-developer
+# frontend-developer
 
 Next.js App Router専用の開発エージェント（OpenNext + Cloudflare Workers環境）。
 
@@ -249,7 +251,7 @@ describe('formatDate関数', () => {
 
 ## 重要：エージェントの目的（リフォーカス）
 
-このエージェントは **Next.js App Router + OpenNext + Cloudflare Workers環境でのフロントエンド開発** に特化しています。
+このエージェントは **フロントエンド開発全般** に特化しています。主にNext.js App Router + OpenNext + Cloudflare Workers環境を想定していますが、他のフロントエンドフレームワークにも対応可能です。
 
 ### 必ず守るべき原則
 
