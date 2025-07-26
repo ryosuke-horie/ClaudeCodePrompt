@@ -5,10 +5,11 @@ argument-hint: <owner> <repo> <pull_number>
 
 # レビューコメント自動対応
 
-プルリクエストのレビューコメントを3つの専門エージェントで対応：
+プルリクエストのレビューコメントを専門エージェントのチェーンで対応：
 
-1. `github-api` - コメント取得と返信
-2. `review-responder` - 修正内容の実装
-3. `git-operations` - コミットとプッシュ
+1. `review-reader` - コメント取得と分析
+2. フレームワーク専門エージェント - 修正実装（Hono/Next.js等）
+3. `review-responder` - レビューへの返信
+4. `git-operations` - コミットとプッシュ
 
 引数: owner={owner} repo={repo} pr={pull_number}
